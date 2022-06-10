@@ -3,6 +3,7 @@
     "version": "1.0.0",
     "license": "MIT",
     "private": false,
+    "main": "index.js",
     "dependencies": {
         "vue": "^3"
     },
