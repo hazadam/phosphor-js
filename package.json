@@ -11,6 +11,7 @@
         "jest": "^28.1.0"
     },
     "scripts": {
-        "test": "jest"
+        "test": "jest",
+        "publish": "npm publish --access public"
     }
 }
