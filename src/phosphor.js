@@ -8,15 +8,19 @@ function pushNew(array, element) {
 }
 
 module.exports = function(obj) {
+    const _setup = obj.setup;
     const extended = Object.assign(obj, {
-        render: function() {
-            const cacheKey = this.noCache ? this : this.$.type.name;
+        setup: function(props) {
+            const setupResult = _setup(props);
+            const cacheKey = props.noCache ? obj : obj.name;
             if (!compiled.has(cacheKey)) {
-                const renderFunction = compile(this.template, { delimiters: ['{', '}'] });
+                const renderFunction = compile(props.template, {delimiters: ['{', '}']});
                 compiled.set(cacheKey, renderFunction);
             }
-            return compiled.get(cacheKey)(...Array.from(arguments));
-        }
+            obj.render = compiled.get(cacheKey);
+
+            return setupResult;
+        },
     });
     if (extended.props) {
         if (Array.isArray(extended.props)) {
